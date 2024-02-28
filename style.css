@@ -1,0 +1,114 @@
+.varela-round-regular {
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+body {
+    background: #efefef;
+}
+
+.mq-editable-field {
+    min-width: 100%;
+    height: 10%;
+    padding: 1.5vh;
+    border-radius: 10px;
+    font-size: 5vh;
+    background: white;
+    border: none;
+    box-shadow: 0px 0px 10px 4px rgba(128, 128, 128, 0.45);
+}
+
+.mq-focused {
+    border-radius: 10px !important;
+}
+
+.container {
+    display: inline-block;
+    padding: 10vh;
+    width: 85%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding-top: 5vh;
+    padding-left: 10vh;
+    gap: 10px;
+    width: 85%;
+}
+
+.grid-item {
+    background-color: white;
+    border-radius: 10px;
+    padding: 5%;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.grid-item:hover {
+    background-color: #d2d2d2;
+}
+
+.grid-item:active {
+    background-color: #a1a1a1;
+}
+
+.copy_eq {
+    position: relative;
+    top: 1vh;
+    min-width: 10%;
+    padding: 1.5vh;
+    border-radius: 10px;
+    background: #db3f3f;
+    border: none;
+    color: white;
+    font-size: 3vh;
+    box-shadow: 0px 5px 10px 4px rgba(128, 128, 128, 0.45);
+    cursor: pointer;
+
+}
+
+.tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 130%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    rotate: 180deg;
+    border-color: #555 transparent transparent transparent;
+}
+
+.copy_eq:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.copy_eq:hover {
+    background: #9f2e2e;
+}
+
+.copy_eq:active {
+    background: #6b1e1e;
+}

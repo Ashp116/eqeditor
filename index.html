@@ -1,10 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/mathquill-0.10.1/mathquill.css"/>
+    <link rel="stylesheet" href="/style.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/mathquill-0.10.1/mathquill.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        const MQ = MathQuill.getInterface(2);
+    </script>
 </head>
 <body>
-$END$
+<p class="container">
+    <span id="answer"></span>
+    <button id="copy_eq" class="copy_eq varela-round-regular" onclick="on_copy_click()" onmouseout="on_copy_out()">
+        <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+        <i class="fa fa-clipboard"></i>
+    </button>
+</p>
+
+<div id="utilities" class="grid-container">
+    <span class="grid-item">\int_{a}^{b}{}</span>
+    <span class="grid-item">\sqrt[n]{x}</span>
+    <span class="grid-item">\sqrt{x}</span>
+    <span class="grid-item">\frac{x}{y}</span>
+    <span class="grid-item">\lim_{h\to 0}{f(x)}</span>
+    <span class="grid-item">\infty</span>
+    <span class="grid-item">\pi</span>
+    <span class="grid-item">|_a^b</span>
+    <span class="grid-item">x^a</span>
+    <span class="grid-item">x_{b}</span>
+    <span class="grid-item">\pm</span>
+    <span class="grid-item">\frac{d}{dx}</span>
+</div>
+<script>
+    let math_eq = ''
+    var answerSpan = document.getElementById('answer');
+    var answerMathField = MQ.MathField(answerSpan, {
+        sumStartsWithNEquals: true,
+        supSubsRequireOperand: true,
+        charsThatBreakOutOfSupSub: '+-=<>',
+        autoSubscriptNumerals: true,
+        autoCommands: 'pi theta sqrt sum',
+        autoOperatorNames: 'sin cos',
+        handlers: {
+            edit: function() {
+                math_eq = answerMathField.latex(); // Get entered math in LaTeX format
+            }
+        }
+    });
+
+    function on_copy_click() {
+        if (math_eq === "") return
+        navigator.clipboard.writeText(math_eq)
+    }
+
+    function on_copy_out() {
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Copy to clipboard";
+    }
+
+    for (const element of document.getElementById("utilities").children) {
+        let elementVal = element.innerHTML
+
+        element.onclick = function () {
+            answerMathField.write(elementVal)
+        }
+
+        MQ.StaticMath(element)
+    }
+</script>
 </body>
 </html>
