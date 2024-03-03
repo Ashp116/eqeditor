@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <title>WebWork Equation Editor | Ashp116</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/webwork_equation_editor/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/webwork_equation_editor/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/webwork_equation_editor/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/webwork_equation_editor/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
     <meta name="msapplication-TileColor" content="#da532c">
 
     <meta name="theme-color" content="#ffffff">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="/webwork_equation_editor/mathquill-0.10.1/mathquill.css"/>
-    <script src="/webwork_equation_editor/mathquill-0.10.1/mathquill.js"></script>
+    <link rel="stylesheet" href="/mathquill-0.10.1/mathquill.css"/>
+    <script src="/mathquill-0.10.1/mathquill.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,16 +26,15 @@
         const MQ = MathQuill.getInterface(2);
     </script>
 
-    <link rel="stylesheet" href="/webwork_equation_editor/style.css"/>
+    <link rel="stylesheet" href="/style.css"/>
 
 </head>
 <body>
-<h1 style="text-align: center">WebWork Equation Editor</h1>
-<p class="">
+<h1 style="text-align: center" class="varela-round">WebWork Equation Editor</h1>
+<p>
     <span id="answer"></span>
-
 </p>
-<button id="copy_eq" class="copy_eq">
+<button id="copy_eq" class="copy_eq varela-round">
     Copy
     <span class="tooltiptext">Copy to clipboard</span>
     <i class="fa fa-clipboard"></i>
@@ -52,7 +51,7 @@
 <br>
 <div class="main-eq">
     <div class="eq-types">
-        <ul id="eq-list">
+        <ul id="eq-list" class="varela-round" >
             <li class="eq-type" val="Basic">Basic</li>
             <li class="eq-type" val="Exponents">Exponents</li>
             <li class="eq-type" val="Trigonometry">Trigonometry</li>
@@ -62,7 +61,7 @@
             <li class="eq-type" val="Others">Others</li>
         </ul>
     </div>
-    <div class="eq-container" id="utilities"></div>
+    <div class="eq-container varela-round" id="utilities"></div>
 </div>
 
 <footer style="margin-top: 9%">
@@ -70,7 +69,7 @@
     <a style="font-size:24px" target="_blank" href="https://github.com/Ashp116/webwork_equation_editor">Github</a>
 </footer>
 </body>
-<script src="/webwork_equation_editor/main.js"></script>
+<script src="/main.js"></script>
 <script>
     let math_eq = ''
 
