@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>WebWork Equation Editor | Ashp116</title>
+
     <link rel="stylesheet" href="/mathquill-0.10.1/mathquill.css"/>
-    <link rel="stylesheet" href="/style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="/mathquill-0.10.1/mathquill.js"></script>
 
@@ -16,95 +16,31 @@
     <script>
         const MQ = MathQuill.getInterface(2);
     </script>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: "Varela Round", sans-serif;
-        }
 
-        .editor {
+    <link rel="stylesheet" href="/style.css"/>
 
-        }
-
-        .main-eq {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .eq-types {
-            width: 28%;
-            height: 100%;
-        }
-        ul {
-            margin-block-start: 0em;
-            margin-block-end: 0em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-            padding-inline-start: 0px;
-            list-style-type: none;
-            border-width:1px;
-            padding-left: 0pt;
-        }
-
-        .eq-type {
-            padding: 10px;
-            font-size: 100%;
-            height: 120%;
-            text-align: center;
-            margin: 1.3px;
-            flex-shrink: 1;
-            border-radius: 10px;
-            cursor: pointer;
-            align-items: center;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .eq-type:hover {
-            background-color: #d3d3d3;
-        }
-
-        .eq-active {
-            background-color: #d3d3d3;
-        }
-
-        .eq-container {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 2px;
-            width: 72%;
-        }
-
-        .eq-btn {
-            background-color: #D9D9D9;
-            padding: 44.5px;
-            font-size: 30px;
-            flex: 30.33%;
-            text-align: center;
-            margin: 5px;
-            border-radius: 10px;
-            cursor: pointer;
-            align-items: center;
-        }
-
-        .eq-btn:hover {
-            background-color: #b5b5b5;
-        }
-
-        .eq-btn:active {
-            background-color: #959595;
-        }
-    </style>
 </head>
 <body>
+<h1 style="text-align: center">WebWork Equation Editor</h1>
 <p class="">
     <span id="answer"></span>
 
 </p>
+<button id="copy_eq" class="copy_eq">
+    Copy
+    <span class="tooltiptext">Copy to clipboard</span>
+    <i class="fa fa-clipboard"></i>
+</button>
+<!---
+<button id="copy_as_latex" class="copy_eq">
+    LaTex
+    <span class="tooltiptext">Copy to clipboard as LaTex</span>
+    <i class="fa fa-clipboard"></i>
+</button>
+-->
+<br>
+<br>
+<br>
 <div class="main-eq">
     <div class="eq-types">
         <ul id="eq-list">
@@ -117,72 +53,13 @@
             <li class="eq-type" val="Others">Others</li>
         </ul>
     </div>
-    <div class="eq-container" id="utilities">
-        <div class="eq-btn">a+b</div>
-        <div class="eq-btn">a-b</div>
-        <div class="eq-btn invis">a*b</div>
-        <div class="eq-btn"></div>
-        <div class="eq-btn"></div>
-        <div class="eq-btn"></div>
-    </div>
+    <div class="eq-container" id="utilities"></div>
 </div>
 </body>
+<script src="main.js"></script>
 <script>
-    const Tabs = {
-        Basic: [
-            "a+b",
-            "a-b",
-            "a * b",
-            "a \\div b",
-            "\\frac{a}{b}",
-            "|a|"
-        ],
-        Exponents: [
-            "a^b",
-            "\\sqrt{a}",
-            "\\sqrt[n]{x}",
-            "e^a"
-        ],
-        Trigonometry: [
-            "sin(a)",
-            "cos(a)",
-            "tan(a)",
-            "csc(a)",
-            "sec(a)",
-            "cot(a)"
-        ],
-        InverseTrigonometry: [
-            "\\sin^{-1}(a)",
-            "\\cos^{-1}(a)",
-            "\\tan^{-1}(a)",
-            "\\cot^{-1}(a)",
-            "\\sec^{-1}(a)",
-            "\\csc^{-1}(a)",
-        ],
-        Logarithms: [
-            "\\log(a)",
-            "\\log_a{b}",
-            "ln(a)",
-            "e^x"
-        ],
-        Intervals: [
-            "[a,b]",
-            "(a,b]",
-            "[a,b)",
-            "(a,b)",
-            "{A}\\cup{B}"
-        ],
-        Others: [
-            "\\infty",
-            "\\pi",
-            "e",
-            "(a)",
-            "[a]",
-            "{a}"
-        ],
-    }
-
     let math_eq = ''
+
     var answerSpan = document.getElementById('answer');
     var answerMathField = MQ.MathField(answerSpan, {
         sumStartsWithNEquals: true,
@@ -197,35 +74,7 @@
         }
     });
 
-    const updateUtilities = () => {
-        for (const element of document.getElementById("utilities").children) {
-            let elementVal = element.innerHTML
-
-            element.onclick = function () {
-                answerMathField.write(elementVal)
-            }
-
-            MQ.StaticMath(element)
-        }
-    }
-
-    const eq_type_btns = (eq_type) => {
-        for (const eq_element of document.getElementById("eq-list").children) {
-            eq_element.classList.remove("eq-active")
-        }
-
-        eq_type.classList.add("eq-active")
-
-        let utils = document.getElementById("utilities")
-        utils.innerHTML = ""
-
-        for (let i = 0; i < Tabs[eq_type.getAttribute("val")].length; i++) {
-            utils.innerHTML += `<div class="eq-btn">${Tabs[eq_type.getAttribute("val")][i]}</div>`
-        }
-
-        updateUtilities()
-    }
-
+    // Connect the EqTabs to the eq-list to allow the user to use different operations
     for (const eq_type of document.getElementById("eq-list").children) {
 
         eq_type.onclick = () => {
@@ -234,5 +83,11 @@
     }
 
     eq_type_btns(document.getElementById("eq-list").children.item(0))
+
+    // Copy as text
+    document.getElementById("copy_eq").onclick = () => {
+        if (math_eq === "") return
+        navigator.clipboard.writeText(latexToString(math_eq))
+    }
 </script>
 </html>

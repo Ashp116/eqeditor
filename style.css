@@ -1,12 +1,6 @@
-.varela-round-regular {
+* {
+    box-sizing: border-box;
     font-family: "Varela Round", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-
-body {
-    background: #efefef;
 }
 
 .mq-editable-field {
@@ -24,42 +18,10 @@ body {
     border-radius: 10px !important;
 }
 
-.container {
-    display: inline-block;
-    padding: 10vh;
-    width: 85%;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    padding-top: 5vh;
-    padding-left: 10vh;
-    gap: 10px;
-    width: 85%;
-}
-
-.grid-item {
-    background-color: white;
-    border-radius: 10px;
-    padding: 5%;
-    font-size: 20px;
-    text-align: center;
-    cursor: pointer;
-}
-
-.grid-item:hover {
-    background-color: #d2d2d2;
-}
-
-.grid-item:active {
-    background-color: #a1a1a1;
-}
-
 .copy_eq {
     position: relative;
     top: 1vh;
-    min-width: 10%;
+    width: 20vw;
     padding: 1.5vh;
     border-radius: 10px;
     background: #db3f3f;
@@ -113,63 +75,76 @@ body {
     background: #6b1e1e;
 }
 
-/*the container must be positioned relative:*/
-.custom-select {
-    position: relative;
-    font-family: Arial;
+
+.main-eq {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.custom-select select {
-    display: none; /*hide original SELECT element:*/
+.eq-types {
+    width: 28%;
+    height: 100%;
+}
+ul {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+    list-style-type: none;
+    border-width:1px;
+    padding-left: 0pt;
 }
 
-.select-selected {
-    background-color: DodgerBlue;
-}
-
-/*style the arrow inside the select element:*/
-.select-selected:after {
-    position: absolute;
-    content: "";
-    top: 14px;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border: 6px solid transparent;
-    border-color: #fff transparent transparent transparent;
-}
-
-/*point the arrow upwards when the select box is open (active):*/
-.select-selected.select-arrow-active:after {
-    border-color: transparent transparent #fff transparent;
-    top: 7px;
-}
-
-/*style the items (options), including the selected item:*/
-.select-items div,.select-selected {
-    color: #ffffff;
-    padding: 8px 16px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+.eq-type {
+    padding: 10px;
+    font-size: 100%;
+    height: 120%;
+    text-align: center;
+    margin: 1.3px;
+    flex-shrink: 1;
+    border-radius: 10px;
     cursor: pointer;
+    align-items: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 }
 
-/*style items (options):*/
-.select-items {
-    position: absolute;
-    background-color: DodgerBlue;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 99;
+.eq-type:hover {
+    background-color: #d3d3d3;
 }
 
-/*hide the items when the select box is closed:*/
-.select-hide {
-    display: none;
+.eq-active {
+    background-color: #d3d3d3;
 }
 
-.select-items div:hover, .same-as-selected {
-    background-color: rgba(0, 0, 0, 0.1);
+.eq-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2px;
+    width: 72%;
+}
+
+.eq-btn {
+    background-color: #D9D9D9;
+    padding: 44.5px;
+    font-size: 30px;
+    flex: 30.33%;
+    text-align: center;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.eq-btn:hover {
+    background-color: #b5b5b5;
+}
+
+.eq-btn:active {
+    background-color: #959595;
 }

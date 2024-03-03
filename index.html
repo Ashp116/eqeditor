@@ -69,7 +69,6 @@
     // \int_a^bf\left(x\right)dx+\sqrt[n]{x}
     function on_copy_click() {
         if (math_eq === "") return
-        latexToString(math_eq)
         navigator.clipboard.writeText(latexToString(math_eq))
     }
 
