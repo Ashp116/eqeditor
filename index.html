@@ -3,19 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/eqeditor/mathquill-0.10.1/mathquill.css"/>
-    <link rel="stylesheet" href="/eqeditor/style.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/eqeditor/mathquill-0.10.1/mathquill.js"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script>
-        const MQ = MathQuill.getInterface(2);
-    </script>
 </head>
 <body>
 <p class="container">
@@ -26,7 +14,27 @@
     </button>
 </p>
 
+<div class="custom-select" style="width:200px;">
+    <select>
+        <option value="0">Select car:</option>
+        <option value="1">Audi</option>
+        <option value="2">BMW</option>
+        <option value="3">Citroen</option>
+        <option value="4">Ford</option>
+        <option value="5">Honda</option>
+        <option value="6">Jaguar</option>
+        <option value="7">Land Rover</option>
+        <option value="8">Mercedes</option>
+        <option value="9">Mini</option>
+        <option value="10">Nissan</option>
+        <option value="11">Toyota</option>
+        <option value="12">Volvo</option>
+    </select>
+</div>
+
 <div id="utilities" class="grid-container">
+
+
     <span class="grid-item">\int_{a}^{b}{}</span>
     <span class="grid-item">\sqrt[n]{x}</span>
     <span class="grid-item">\sqrt{x}</span>
@@ -36,10 +44,12 @@
     <span class="grid-item">\pi</span>
     <span class="grid-item">|_a^b</span>
     <span class="grid-item">x^a</span>
-    <span class="grid-item">x_{b}</span>
-    <span class="grid-item">\pm</span>
-    <span class="grid-item">\frac{d}{dx}</span>
+    <span class="grid-item">\log_[1]{2}</span>
+    <span class="grid-item">\sin^{-1}(a)</span>
+    <span class="grid-item">{A}\cup{B}</span>
 </div>
+
+<script src="main.js"></script>
 <script>
     let math_eq = ''
     var answerSpan = document.getElementById('answer');
@@ -48,8 +58,7 @@
         supSubsRequireOperand: true,
         charsThatBreakOutOfSupSub: '+-=<>',
         autoSubscriptNumerals: true,
-        autoCommands: 'pi theta sqrt sum',
-        autoOperatorNames: 'sin cos',
+        autoCommands: 'pi theta sum',
         handlers: {
             edit: function() {
                 math_eq = answerMathField.latex(); // Get entered math in LaTeX format
@@ -57,9 +66,11 @@
         }
     });
 
+    // \int_a^bf\left(x\right)dx+\sqrt[n]{x}
     function on_copy_click() {
         if (math_eq === "") return
-        navigator.clipboard.writeText(math_eq)
+        latexToString(math_eq)
+        navigator.clipboard.writeText(latexToString(math_eq))
     }
 
     function on_copy_out() {
@@ -76,6 +87,8 @@
 
         MQ.StaticMath(element)
     }
+
+
 </script>
 </body>
 </html>
