@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/eqeditor/mathquill-0.10.1/mathquill.css"/>
-    <link rel="stylesheet" href="/eqeditor/style.css"/>
+    <title>WebWork Equation Editor | Ashp116</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/webwork_equation_editor/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/webwork_equation_editor/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/webwork_equation_editor/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/webwork_equation_editor/favicon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+
+    <meta name="theme-color" content="#ffffff">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/eqeditor/mathquill-0.10.1/mathquill.js"></script>
+
+    <link rel="stylesheet" href="/webwork_equation_editor/mathquill-0.10.1/mathquill.css"/>
+    <script src="/webwork_equation_editor/mathquill-0.10.1/mathquill.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,40 +25,62 @@
     <script>
         const MQ = MathQuill.getInterface(2);
     </script>
+
+    <link rel="stylesheet" href="/webwork_equation_editor/style.css"/>
+
 </head>
 <body>
-<p class="container">
+<h1 style="text-align: center">WebWork Equation Editor</h1>
+<p class="">
     <span id="answer"></span>
-    <button id="copy_eq" class="copy_eq varela-round-regular" onclick="on_copy_click()" onmouseout="on_copy_out()">
-        <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
-        <i class="fa fa-clipboard"></i>
-    </button>
-</p>
 
-<div id="utilities" class="grid-container">
-    <span class="grid-item">\int_{a}^{b}{}</span>
-    <span class="grid-item">\sqrt[n]{x}</span>
-    <span class="grid-item">\sqrt{x}</span>
-    <span class="grid-item">\frac{x}{y}</span>
-    <span class="grid-item">\lim_{h\to 0}{f(x)}</span>
-    <span class="grid-item">\infty</span>
-    <span class="grid-item">\pi</span>
-    <span class="grid-item">|_a^b</span>
-    <span class="grid-item">x^a</span>
-    <span class="grid-item">x_{b}</span>
-    <span class="grid-item">\pm</span>
-    <span class="grid-item">\frac{d}{dx}</span>
+</p>
+<button id="copy_eq" class="copy_eq">
+    Copy
+    <span class="tooltiptext">Copy to clipboard</span>
+    <i class="fa fa-clipboard"></i>
+</button>
+<!---
+<button id="copy_as_latex" class="copy_eq">
+    LaTex
+    <span class="tooltiptext">Copy to clipboard as LaTex</span>
+    <i class="fa fa-clipboard"></i>
+</button>
+-->
+<br>
+<br>
+<br>
+<div class="main-eq">
+    <div class="eq-types">
+        <ul id="eq-list">
+            <li class="eq-type" val="Basic">Basic</li>
+            <li class="eq-type" val="Exponents">Exponents</li>
+            <li class="eq-type" val="Trigonometry">Trigonometry</li>
+            <li class="eq-type" val="InverseTrigonometry">Inv Trigonometry</li>
+            <li class="eq-type" val="Logarithms">Logarithms</li>
+            <li class="eq-type" val="Intervals">Intervals</li>
+            <li class="eq-type" val="Others">Others</li>
+        </ul>
+    </div>
+    <div class="eq-container" id="utilities"></div>
 </div>
+
+<footer style="margin-top: 9%">
+    <i class="fa fa-github" style="font-size:36px"></i>
+    <a style="font-size:24px" target="_blank" href="https://github.com/Ashp116/webwork_equation_editor">Github</a>
+</footer>
+</body>
+<script src="/webwork_equation_editor/main.js"></script>
 <script>
     let math_eq = ''
+
     var answerSpan = document.getElementById('answer');
     var answerMathField = MQ.MathField(answerSpan, {
         sumStartsWithNEquals: true,
         supSubsRequireOperand: true,
         charsThatBreakOutOfSupSub: '+-=<>',
         autoSubscriptNumerals: true,
-        autoCommands: 'pi theta sqrt sum',
-        autoOperatorNames: 'sin cos',
+        autoCommands: 'pi theta sum',
         handlers: {
             edit: function() {
                 math_eq = answerMathField.latex(); // Get entered math in LaTeX format
@@ -57,25 +88,20 @@
         }
     });
 
-    function on_copy_click() {
-        if (math_eq === "") return
-        navigator.clipboard.writeText(math_eq)
-    }
+    // Connect the EqTabs to the eq-list to allow the user to use different operations
+    for (const eq_type of document.getElementById("eq-list").children) {
 
-    function on_copy_out() {
-        var tooltip = document.getElementById("myTooltip");
-        tooltip.innerHTML = "Copy to clipboard";
-    }
-
-    for (const element of document.getElementById("utilities").children) {
-        let elementVal = element.innerHTML
-
-        element.onclick = function () {
-            answerMathField.write(elementVal)
+        eq_type.onclick = () => {
+            eq_type_btns(eq_type)
         }
+    }
 
-        MQ.StaticMath(element)
+    eq_type_btns(document.getElementById("eq-list").children.item(0))
+
+    // Copy as text
+    document.getElementById("copy_eq").onclick = () => {
+        if (math_eq === "") return
+        navigator.clipboard.writeText(latexToString(math_eq))
     }
 </script>
-</body>
 </html>
