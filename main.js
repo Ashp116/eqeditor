@@ -271,6 +271,5 @@ const onload = () => {
         mathVirtualKeyboard.show()
         mf.mathVirtualKeyboardPolicy = "manual";
         mf.addEventListener("focusin", () =>  mathVirtualKeyboard.show());
-        mf.addEventListener("focusout", () =>  mathVirtualKeyboard.hide());
     })
 }
