@@ -6,160 +6,48 @@
 .varela-round {
     font-family: "Varela Round", sans-serif;
 }
+/* Style for the button */
+.btn {
+    display: inline-block;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #db3f3f; /* Button background color */
+    color: #fff; /* Button text color */
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #db3f3f; /* Button border color */
+    border-radius: 10px; /* Adjust border radius for rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+    box-shadow: 0px 5px 10px 4px rgba(128, 128, 128, 0.45); /* Box shadow */
+}
 
-.mq-editable-field {
-    min-width: 100%;
-    height: 10%;
-    padding: 1.5vh;
+/* Hover effect for the button */
+.btn:hover {
+    background-color: #a32b2b; /* Hover background color */
+    border-color: #a32b2b; /* Hover border color */
+}
+
+/* Active (clicked) state for the button */
+.btn:active {
+    background-color: #801c1c; /* Active background color */
+    border-color: #801c1c; /* Active border color */
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+    .btn {
+        padding: 8px 16px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+}
+
+math-field {
+    width: 100%; /* Set the width to 99% of its container */
+    font-size: xx-large;
+    box-sizing: border-box; /* Ensure padding and border are included in width/height */
+    resize: none; /* Disable resizing */
+    overflow: hidden; /* Allow scrolling if content overflows */
     border-radius: 10px;
-    font-size: 5vh;
-    background: white;
-    border: none;
     box-shadow: 0px 0px 10px 4px rgba(128, 128, 128, 0.45);
-
-}
-
-.mq-focused {
-    border-radius: 10px !important;
-}
-
-.copy_eq {
-    position: relative;
-    top: 1vh;
-    width: 20vw;
-    padding: 1.5vh;
-    border-radius: 10px;
-    background: #db3f3f;
-    border: none;
-    color: white;
-    font-size: 3vh;
-    box-shadow: 0px 5px 10px 4px rgba(128, 128, 128, 0.45);
-    cursor: pointer;
-
-}
-
-.tooltiptext {
-    visibility: hidden;
-    width: 140px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    top: 130%;
-    left: 50%;
-    margin-left: -75px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.tooltiptext::after {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    rotate: 180deg;
-    border-color: #555 transparent transparent transparent;
-}
-
-.copy_eq:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-.copy_eq:hover {
-    background: #9f2e2e;
-}
-
-.copy_eq:active {
-    background: #6b1e1e;
-}
-
-
-.main-eq {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.eq-types {
-    width: 28%;
-    height: 100%;
-}
-ul {
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 0px;
-    list-style-type: none;
-    border-width:1px;
-    padding-left: 0pt;
-}
-
-.eq-type {
-    padding: 10px;
-    font-size: 100%;
-    height: 120%;
-    text-align: center;
-    margin: 1.3px;
-    flex-shrink: 1;
-    border-radius: 10px;
-    cursor: pointer;
-    align-items: center;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.eq-type:hover {
-    background-color: #d3d3d3;
-}
-
-.eq-active {
-    background-color: #d3d3d3;
-}
-
-.eq-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 2px;
-    width: 72%;
-}
-
-.eq-btn {
-    background-color: #D9D9D9;
-    padding: 44.5px;
-    font-size: 30px;
-    flex: 30.33%;
-    text-align: center;
-    margin: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-    align-items: center;
-}
-
-.eq-btn:hover {
-    background-color: #b5b5b5;
-}
-
-.eq-btn:active {
-    background-color: #959595;
-}
-
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
+    --smart-fence-color: red ;
 }
