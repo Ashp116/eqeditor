@@ -147,7 +147,7 @@ function latexToString(latex) {
     latex = latex.replace(/\\sqrt\[(.+?)\]\{([^{}]+)\}/g, '($2)^(1/$1)');
 
     // Replace fractions
-    latex = latex.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '($1/$2)');
+    latex = latex.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, '($1)/($2)');
 
     // Recursive replacement for nested fractions
     changed = true;
@@ -155,7 +155,7 @@ function latexToString(latex) {
         changed = false;
         latex = latex.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, function(match, p1, p2) {
             changed = true;
-            return '(' + latexToString(p1) + '/' + latexToString(p2) + ')';
+            return '(' + latexToString(p1) + ')' + '/' + '(' + latexToString(p2) + ')';
         });
     }
 
