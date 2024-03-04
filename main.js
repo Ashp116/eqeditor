@@ -161,6 +161,7 @@ function latexToString(latex) {
 
     // Replace constants
     latex = latex.replace(/\\pi/g, 'pi'); // Replace pi
+    latex = latex.replace(/\\phi/g, 'phi'); // Replace phi
     latex = latex.replace(/\\e/g, 'e'); // Replace e (requires \mathrm{} in LaTeX)
 
     // Recursive replacement for nested nth root and square root
@@ -182,33 +183,4 @@ function latexToString(latex) {
     latex = latex.replace(/\\}/g, '}'); // Remove escaped closing brace
 
     return latex;
-}
-
-const updateUtilities = () => {
-    for (const element of document.getElementById("utilities").children) {
-        let elementVal = element.innerHTML
-
-        element.onclick = function () {
-            answerMathField.write(elementVal)
-        }
-
-        MQ.StaticMath(element)
-    }
-}
-
-const eq_type_btns = (eq_type) => {
-    for (const eq_element of document.getElementById("eq-list").children) {
-        eq_element.classList.remove("eq-active")
-    }
-
-    eq_type.classList.add("eq-active")
-
-    let utils = document.getElementById("utilities")
-    utils.innerHTML = ""
-
-    for (let i = 0; i < EqTabs[eq_type.getAttribute("val")].length; i++) {
-        utils.innerHTML += `<div class="eq-btn">${EqTabs[eq_type.getAttribute("val")][i]}</div>`
-    }
-
-    updateUtilities()
 }

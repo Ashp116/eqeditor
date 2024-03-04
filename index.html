@@ -87,16 +87,6 @@
         }
     });
 
-    // Connect the EqTabs to the eq-list to allow the user to use different operations
-    for (const eq_type of document.getElementById("eq-list").children) {
-
-        eq_type.onclick = () => {
-            eq_type_btns(eq_type)
-        }
-    }
-
-    eq_type_btns(document.getElementById("eq-list").children.item(0))
-
     // Copy as text
     document.getElementById("copy_eq").onclick = () => {
         if (math_eq === "") return

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebWork Equation Editor | Ashp116</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+
+  <meta name="theme-color" content="#ffffff">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/mathquill-0.10.1/mathquill.css"/>
+  <script src="/mathquill-0.10.1/mathquill.js"></script>
+  
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer src="//unpkg.com/mathlive"></script>
+
+  <style>
+    math-field {
+      width: 100%; /* Set the width to 99% of its container */
+      font-size: xx-large;
+      box-sizing: border-box; /* Ensure padding and border are included in width/height */
+      resize: none; /* Disable resizing */
+      overflow: hidden; /* Allow scrolling if content overflows */
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 4px rgba(128, 128, 128, 0.45);
+      --smart-fence-color: red ;
+    }
+    /* Custom CSS */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .col.s9 {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col.s3 {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .collection-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border: none;
+
+    }
+
+    tr {
+      border-bottom: none !important;
+    }
+
+    .collection-item {
+      border-bottom: none !important;
+      padding: 0;
+    }
+
+    .custom-table {
+      height: 400px; /* Set your desired height */
+      overflow-y: auto; /* Add scrollbars if content overflows vertically */
+    }
+
+    .btn-large {
+      height: 100%;
+      border: none;
+      padding: 0;
+      line-height: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+
+    .auto-text-size {
+      font-size: 1.5rem; /* Set initial font size */
+    }
+
+    .collection-item {
+      border-radius: 15px;
+      color: black !important;
+    }
+
+    .active {
+      background-color: #ddd !important;
+    }
+    /* Style for the button */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px; /* Adjust padding as needed */
+      background-color: #db3f3f; /* Button background color */
+      color: #fff; /* Button text color */
+      text-align: center;
+      text-decoration: none;
+      border: 2px solid #db3f3f; /* Button border color */
+      border-radius: 10px; /* Adjust border radius for rounded corners */
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+      box-shadow: 0px 5px 10px 4px rgba(128, 128, 128, 0.45); /* Box shadow */
+    }
+
+    /* Hover effect for the button */
+    .btn:hover {
+      background-color: #a32b2b; /* Hover background color */
+      border-color: #a32b2b; /* Hover border color */
+    }
+
+    /* Active (clicked) state for the button */
+    .btn:active {
+      background-color: #801c1c; /* Active background color */
+      border-color: #801c1c; /* Active border color */
+    }
+
+    /* Responsive design */
+    @media screen and (max-width: 600px) {
+      .btn {
+        padding: 8px 16px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Adjust font size for smaller screens */
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+<h1 style="text-align: center" class="varela-round">WebWork Equation Editor</h1>
+
+<math-field id="formula">f(x) = \sin(x+\pi)</math-field>
+<a id="copy_eq" class="btn varela-round">
+  Copy
+  <i class="fa fa-clipboard"></i>
+</a>
+
+</body>
+<script src="main.js"></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () =>
+          import("//unpkg.com/mathlive?module").then((mathlive) => {
+            mathlive.renderMathInDocument()
+            const mf = document.getElementById("formula");
+
+            mf. menuItems = [
+              {
+                label: 'Copy',
+                onMenuSelect: () => {
+                  if (mf.value === "") return
+                  navigator.clipboard.writeText(latexToString(mf.value))
+                }
+              },
+            ];
+
+            // Copy as text
+            document.getElementById("copy_eq").onclick = () => {
+              if (mf.value === "") return
+              navigator.clipboard.writeText(latexToString(mf.value))
+            }
+
+            document.querySelector('math-field').addEventListener('focus', () => {
+              mathVirtualKeyboard.layouts = [
+                {
+                  label: "Basic",
+                  tooltip: "Only the essential",
+                  rows: [
+                    [
+                      "+", "-", "\\times", "\\frac{#@}{#?}", "=", ".",
+                      "(", ")", "\\sqrt{#0}", "#@^{#?}",
+                      "\\log(#0)", "\\log_#@{#?}", "ln(#@)", "e^x"
+                    ],
+                    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+                  ]
+                },
+                "alphabetic",
+                {
+                  label: "Interval",
+                  tooltip: "Interval notations",
+                  rows: [
+                    [
+                      "[#@,#?]", "(#@,#?]", "[#@,#?)",
+                      "(#@,#?)", "{#@}\\cup{#?}"
+                    ],
+                  ]
+                },
+                {
+                  label: "Trig",
+                  tooltip: "Trigonometric functions",
+                  rows: [
+                    [
+                      "\\sin(#@)",
+                      "\\cos(#@)",
+                      "\\tan(#@)",
+                      "\\sin^{-1}(#@)",
+                      "\\cos^{-1}(#@)",
+                      "\\tan^{-1}(#@)",
+                    ],
+                    [
+                      "\\csc(#@)",
+                      "\\sec(#@)",
+                      "\\cot(#@)",
+                      "\\csc^{-1}(#@)",
+                      "\\sec^{-1}(#@)",
+                      "\\cot^{-1}(#@)",
+                    ],
+                  ]
+                },
+                {
+                  label: "Symbols",
+                  tooltip: "Greek symbols",
+                  rows: [
+                    [
+                      "\\pi",
+                      "\\theta",
+                      "\\phi",
+                      "\\infty",
+                    ]
+                  ]
+                },
+
+              ];
+            });
+          })
+
+  );
+
+</script>
+</html>
