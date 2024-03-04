@@ -1,4 +1,3 @@
-
 const EqTabs = {
     Basic: [
         "a+b",
@@ -52,6 +51,67 @@ const EqTabs = {
         "{a}"
     ],
 }
+
+const KeyboardLayout = [
+    {
+        label: "Basic",
+        tooltip: "Only the essential",
+        rows: [
+            [
+                "+", "-", "\\times", "\\frac{#@}{#?}", "=", ".",
+                "(", ")", "\\sqrt{#0}", "#@^{#?}",
+                "\\log(#0)", "\\log_#@{#?}", "ln(#@)", "e^x"
+            ],
+            ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+        ]
+    },
+    "alphabetic",
+    {
+        label: "Interval",
+        tooltip: "Interval notations",
+        rows: [
+            [
+                "[#@,#?]", "(#@,#?]", "[#@,#?)",
+                "(#@,#?)", "{#@}\\cup{#?}"
+            ],
+        ]
+    },
+    {
+        label: "Trig",
+        tooltip: "Trigonometric functions",
+        rows: [
+            [
+                "\\sin(#@)",
+                "\\cos(#@)",
+                "\\tan(#@)",
+                "\\sin^{-1}(#@)",
+                "\\cos^{-1}(#@)",
+                "\\tan^{-1}(#@)",
+            ],
+            [
+                "\\csc(#@)",
+                "\\sec(#@)",
+                "\\cot(#@)",
+                "\\csc^{-1}(#@)",
+                "\\sec^{-1}(#@)",
+                "\\cot^{-1}(#@)",
+            ],
+        ]
+    },
+    {
+        label: "Symbols",
+        tooltip: "Greek symbols",
+        rows: [
+            [
+                "\\pi",
+                "\\theta",
+                "\\phi",
+                "\\infty",
+            ]
+        ]
+    },
+
+];
 
 function latexToString(latex) {
     // Remove \left and \right commands
@@ -183,4 +243,34 @@ function latexToString(latex) {
     latex = latex.replace(/\\}/g, '}'); // Remove escaped closing brace
 
     return latex;
+}
+
+const onload = () => {
+    import("//unpkg.com/mathlive?module").then((mathlive) => {
+        mathlive.renderMathInDocument()
+
+        const mf = document.getElementById("formula");
+
+        mf.menuItems = [
+            {
+                label: 'Copy',
+                onMenuSelect: () => {
+                    if (mf.value === "") return
+                    navigator.clipboard.writeText(latexToString(mf.value))
+                }
+            },
+        ];
+
+        // Copy as text
+        document.getElementById("copy_eq").onclick = () => {
+            if (mf.value === "") return
+            navigator.clipboard.writeText(latexToString(mf.value))
+        }
+
+        mathVirtualKeyboard.layouts = KeyboardLayout
+        mathVirtualKeyboard.show()
+        mf.mathVirtualKeyboardPolicy = "manual";
+        mf.addEventListener("focusin", () =>  mathVirtualKeyboard.show());
+        mf.addEventListener("focusout", () =>  mathVirtualKeyboard.hide());
+    })
 }
