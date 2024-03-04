@@ -9,4 +9,4 @@ This website allows you to use LaTeX to write math equations, and copy it to web
 3. When the copy button is pressed, the normalized string is copied to clipboard
 
 ## Credits
-[Mathlive (by arnog)](/webwork_equation_editor) 
+[Mathlive (by arnog)](https://github.com/arnog/mathlive) 
