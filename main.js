@@ -264,6 +264,7 @@ function latexToString(latex) {
     latex = latex.replace(/\\}/g, '}'); // Remove escaped closing brace
 
     if (isLatex(latex) && counter <= latex_timeout) {
+        counter += 1
         return latexToString(latex)
     }
     else {
