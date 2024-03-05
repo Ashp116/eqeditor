@@ -1,3 +1,5 @@
+let latex_timeout = 100 // Force timeout the latex string is iterated
+let counter = 0
 const EqTabs = {
     Basic: [
         "a+b",
@@ -58,7 +60,7 @@ const KeyboardLayout = [
         tooltip: "Only the essential",
         rows: [
             [
-                "+", "-", "\\times", "\\frac{#@}{#?}", "=", ".",
+                "+", "-", "\\times", "\\frac{{#@}}{{#?}}", "=", ".",
                 "(", ")", "\\sqrt{#0}", "#@^{#?}",
                 "\\log(#0)", "\\log_#@{#?}", "ln(#@)", "e^x"
             ],
@@ -112,6 +114,25 @@ const KeyboardLayout = [
     },
 
 ];
+
+function isLatex(input) {
+    // Regular expressions to detect common LaTeX commands
+    const latexPatterns = [
+        /\\[a-zA-Z]+\{.*?\}/, // Command with arguments in curly braces, e.g., \frac{1}{2}
+        /\\[a-zA-Z]+\s*\[\d+\]/, // Command with optional argument in square brackets, e.g., \sqrt[3]{x}
+        /\\[a-zA-Z]+/, // Command without arguments, e.g., \sin, \cos
+        /\\[a-zA-Z]+\^\{.*?\}/ // Command with exponent, e.g., x^{2}
+    ];
+
+    // Check if the input string matches any LaTeX patterns
+    for (const pattern of latexPatterns) {
+        if (pattern.test(input)) {
+            return true;
+        }
+    }
+
+    return false;
+}
 
 function latexToString(latex) {
     // Remove \left and \right commands
@@ -242,7 +263,13 @@ function latexToString(latex) {
     latex = latex.replace(/\\{/g, '{'); // Remove escaped opening brace
     latex = latex.replace(/\\}/g, '}'); // Remove escaped closing brace
 
-    return latex;
+    if (isLatex(latex) && counter <= latex_timeout) {
+        return latexToString(latex)
+    }
+    else {
+        counter = 0
+        return latex
+    }
 }
 
 const onload = () => {
